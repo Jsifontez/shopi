@@ -5,16 +5,12 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
-    'standard',
-    'prettier'
+    'standard'
   ],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh', 'prettier'],
+  plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': 'warn',
-    'prettier/prettier': 'error',
-    'arrow-body-style': 'off',
-    'prefer-arrow-callback': 'off'
+    'react-refresh/only-export-components': 'warn'
   }
 }
