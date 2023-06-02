@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Card from '../../Components/Card'
+import ProductDetail from '../../Components/ProductDetail'
+import { ShoppingCartContext } from '../../context'
 
 function Home () {
   const [products, setProducts] = useState(null)
+  const { isProductDetailOpen } = useContext(ShoppingCartContext)
 
   useEffect(() => {
     fetch('https://api.escuelajs.co/api/v1/products')
@@ -19,6 +22,10 @@ function Home () {
           <Card key={product.id} product={product} />
         ))}
       </section>
+
+      {isProductDetailOpen &&
+        <ProductDetail />
+      }
     </main>
   )
 }
