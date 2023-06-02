@@ -3,14 +3,17 @@ import { createContext, useState } from 'react'
 const ShoppingCartContext = createContext()
 
 const ShoppingCartProvider = ({ children }) => {
+  // Shopping Cart · Increment quantity
   const [count, setCount] = useState(0)
+
+  // Product Detail · Open/Close
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false)
 
-  const openProductDetail = () => {
-    console.log('opening')
-    setIsProductDetailOpen(true)
-  }
+  const openProductDetail = () => setIsProductDetailOpen(true)
   const closeProductDetail = () => setIsProductDetailOpen(false)
+
+  // Shopping Cart · Show Product
+  const [productToShow, setProdcutToShow] = useState({})
 
   return (
     <ShoppingCartContext.Provider value={{
@@ -18,7 +21,9 @@ const ShoppingCartProvider = ({ children }) => {
       setCount,
       isProductDetailOpen,
       openProductDetail,
-      closeProductDetail
+      closeProductDetail,
+      productToShow,
+      setProdcutToShow
     }}>
       {children}
     </ShoppingCartContext.Provider>
