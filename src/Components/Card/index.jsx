@@ -6,12 +6,18 @@ const Card = ({ product }) => {
   const {
     setCount,
     openProductDetail,
-    setProdcutToShow
+    setProdcutToShow,
+    setCartProducts
   } = useContext(ShoppingCartContext)
 
   const showProduct = (productDetail) => {
     openProductDetail()
     setProdcutToShow(productDetail)
+  }
+
+  const addProductToCart = (product) => {
+    setCount(count => count + 1)
+    setCartProducts(products => [...products, product])
   }
   return (
     <article
@@ -31,7 +37,7 @@ const Card = ({ product }) => {
         />
         <button
           className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
-          onClick={() => setCount(count => count + 1)}
+          onClick={() => addProductToCart(product)}
         >
           <PlusIcon className='w-6 h-6 text-black' />
         </button>
