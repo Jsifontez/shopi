@@ -8,9 +8,15 @@ const CheckoutSideMenu = () => {
   const {
     closeCheckoutSideMenu,
     isCheckoutSideMenuOpen,
-    cartProducts
+    cartProducts,
+    setCartProducts
   } = useContext(ShoppingCartContext)
 
+  const handleDelete = (id) => {
+    const filterProducts = cartProducts.filter(product => product.id !== id)
+
+    setCartProducts(filterProducts)
+  }
   return (
     <aside
       className={`${isCheckoutSideMenuOpen ? 'flex' : 'hidden'} checkout-side-menu flex-col fixed right-0 border border-black rounded-lg bg-white p-4 overflow-auto`}
@@ -27,10 +33,12 @@ const CheckoutSideMenu = () => {
           {cartProducts.map(product => (
             <OrderCard
               key={product.id}
+              id={product.id}
               title={product.title}
               imageUrl={product.images[0]}
               price={product.price}
               quantity={product.quantity}
+              handleDelete={handleDelete}
             />
           ))}
         </ul>
