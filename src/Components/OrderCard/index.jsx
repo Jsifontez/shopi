@@ -1,9 +1,10 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
 
-const OrderCard = ({ title, imageUrl, price }) => {
+const OrderCard = ({ title, imageUrl, price, quantity }) => {
   return (
     <li className='flex justify-between items-center mb-3'>
       <div className='flex items-center gap-2'>
+        <span className='w-3'>{quantity}</span>
         <figure className='w-20 h-20 m-0'>
           <img className='h-full w-full rounded-lg object-cover' src={imageUrl} alt={title} />
         </figure>

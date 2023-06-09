@@ -24,6 +24,23 @@ const ShoppingCartProvider = ({ children }) => {
   // Shopping Cart · Add products to cart
   const [cartProducts, setCartProducts] = useState([])
 
+  const addProductToCart = (product) => {
+    // before set cart Products we need to check if the products
+    // is already added. If is in cart, we add 1 to quantity
+    // if not, we add the products to cart with quantity of 1
+    const productCartIndex = cartProducts.findIndex(
+      cartProduct => cartProduct.id === product.id
+    )
+
+    if (productCartIndex >= 0) {
+      const newCart = [...cartProducts]
+      newCart[productCartIndex].quantity++
+      setCartProducts([...newCart])
+    } else {
+      setCartProducts(products => [...products, { ...product, quantity: 1 }])
+    }
+  }
+
   return (
     <ShoppingCartContext.Provider value={{
       count,
@@ -35,6 +52,7 @@ const ShoppingCartProvider = ({ children }) => {
       setProdcutToShow,
       cartProducts,
       setCartProducts,
+      addProductToCart,
       isCheckoutSideMenuOpen,
       openCheckoutSideMenu,
       closeCheckoutSideMenu

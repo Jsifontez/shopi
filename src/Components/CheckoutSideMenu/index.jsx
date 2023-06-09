@@ -30,6 +30,7 @@ const CheckoutSideMenu = () => {
               title={product.title}
               imageUrl={product.images[0]}
               price={product.price}
+              quantity={product.quantity}
             />
           ))}
         </ul>
