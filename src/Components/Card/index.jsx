@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { PlusIcon } from '@heroicons/react/24/solid'
+import { PlusIcon, CheckIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from '../../context'
 
 const Card = ({ product }) => {
@@ -8,7 +8,8 @@ const Card = ({ product }) => {
     openProductDetail,
     closeProductDetail,
     setProdcutToShow,
-    addProductToCart,
+    cartProducts,
+    setCartProducts,
     openCheckoutSideMenu
   } = useContext(ShoppingCartContext)
 
@@ -17,12 +18,38 @@ const Card = ({ product }) => {
     setProdcutToShow(productDetail)
   }
 
-  const addProductToShoppingCart = (ev, product) => {
+  const addProductToCart = (ev, product) => {
     ev.stopPropagation()
     setCount(count => count + 1)
     closeProductDetail()
-    addProductToCart(product)
+
+    setCartProducts(products => [...products, { ...product, quantity: 1 }])
     openCheckoutSideMenu()
+  }
+
+  const cardIcon = (id) => {
+    const isInCart = cartProducts.some(
+      productCart => productCart.id === id
+    )
+
+    if (isInCart) {
+      return (
+        <button
+        className='absolute top-0 right-0 flex justify-center items-center bg-black w-6 h-6 rounded-full m-2 p-1'
+      >
+        <CheckIcon className='w-6 h-6 text-white' />
+      </button>
+      )
+    }
+
+    return (
+      <button
+        className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+        onClick={(ev) => addProductToCart(ev, product)}
+      >
+        <PlusIcon className='w-6 h-6 text-black' />
+      </button>
+    )
   }
 
   return (
@@ -41,12 +68,7 @@ const Card = ({ product }) => {
           src={product.images[0]}
           alt={product.description}
         />
-        <button
-          className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
-          onClick={(ev) => addProductToShoppingCart(ev, product)}
-        >
-          <PlusIcon className='w-6 h-6 text-black' />
-        </button>
+        {cardIcon(product.id)}
       </figure>
       <p className='flex justify-between items-center'>
         <span className='text-sm font-light'>{product.title}</span>
