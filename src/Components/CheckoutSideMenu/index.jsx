@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from '../../context'
 import OrderCard from '../OrderCard'
+import { totalPice } from '../../utils'
 import './styles.css'
 
 const CheckoutSideMenu = () => {
@@ -17,6 +18,7 @@ const CheckoutSideMenu = () => {
 
     setCartProducts(filterProducts)
   }
+
   return (
     <aside
       className={`${isCheckoutSideMenuOpen ? 'flex' : 'hidden'} checkout-side-menu flex-col fixed right-0 border border-black rounded-lg bg-white p-4 overflow-auto`}
@@ -43,6 +45,17 @@ const CheckoutSideMenu = () => {
           ))}
         </ul>
       </section>
+
+      {cartProducts.length > 0 && (
+        <footer>
+          <p className='flex justify-between items-center'>
+            <span className='font-light'>Total:</span>
+            <span className='font-medium text-xl'>
+              ${totalPice(cartProducts)}
+            </span>
+          </p>
+        </footer>
+      )}
     </aside>
   )
 }
