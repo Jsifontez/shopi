@@ -1,6 +1,32 @@
+import { useContext } from 'react'
 import { TrashIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/solid'
+import { ShoppingCartContext } from '../../context'
 
 const OrderCard = ({ id, title, imageUrl, price, quantity, handleDelete }) => {
+  const { cartProducts, setCartProducts } = useContext(ShoppingCartContext)
+
+  const increaseProduct = (productId) => {
+    const newProducts = [...cartProducts]
+    const productIndex = newProducts.findIndex(
+      product => product.id === productId
+    )
+
+    newProducts[productIndex].quantity++
+
+    setCartProducts(newProducts)
+  }
+
+  const decreaseProduct = (productId) => {
+    const newProducts = [...cartProducts]
+    const productIndex = newProducts.findIndex(
+      product => product.id === productId
+    )
+
+    if (newProducts[productIndex].quantity > 1) {
+      newProducts[productIndex].quantity--
+      setCartProducts(newProducts)
+    }
+  }
   return (
     <li className='flex justify-between items-center mb-3'>
       <div className='flex items-center gap-2'>
@@ -14,13 +40,13 @@ const OrderCard = ({ id, title, imageUrl, price, quantity, handleDelete }) => {
       </div>
 
       <div className='flex items-center gap-2'>
-        <button>
+        <button onClick={() => decreaseProduct(id)}>
           <MinusIcon className="h-3 w-3 text-black" />
         </button>
 
         <span className='w-4 bg-gray-300 text-sm text-center'>{quantity}</span>
 
-        <button>
+        <button onClick={() => increaseProduct(id)}>
           <PlusIcon className="h-3 w-3 text-black" />
         </button>
 
