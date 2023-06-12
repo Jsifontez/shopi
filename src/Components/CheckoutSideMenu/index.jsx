@@ -10,13 +10,28 @@ const CheckoutSideMenu = () => {
     closeCheckoutSideMenu,
     isCheckoutSideMenuOpen,
     cartProducts,
-    setCartProducts
+    setCartProducts,
+    setOrder,
+    setCount
   } = useContext(ShoppingCartContext)
 
   const handleDelete = (id) => {
     const filterProducts = cartProducts.filter(product => product.id !== id)
 
     setCartProducts(filterProducts)
+  }
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      date: '06-12-2023',
+      products: cartProducts,
+      totalProducts: cartProducts.length,
+      totalPice: totalPice(cartProducts)
+    }
+
+    setOrder(order => [...order, orderToAdd])
+    setCartProducts([])
+    setCount(0)
   }
 
   return (
@@ -30,7 +45,7 @@ const CheckoutSideMenu = () => {
         </button>
       </header>
 
-      <section>
+      <section className='flex-1'>
         <ul>
           {cartProducts.map(product => (
             <OrderCard
@@ -46,16 +61,20 @@ const CheckoutSideMenu = () => {
         </ul>
       </section>
 
-      {cartProducts.length > 0 && (
-        <footer>
-          <p className='flex justify-between items-center'>
-            <span className='font-light'>Total:</span>
-            <span className='font-medium text-xl'>
-              ${totalPice(cartProducts)}
-            </span>
-          </p>
+      <footer>
+        <p className='flex justify-between items-center mb-2'>
+          <span className='font-light'>Total:</span>
+          <span className='font-medium text-xl'>
+            ${totalPice(cartProducts)}
+          </span>
+        </p>
+
+        <button
+          className='w-full bg-black text-white py-3 rounded-lg'
+          onClick={handleCheckout}>
+            Checkout
+          </button>
         </footer>
-      )}
     </aside>
   )
 }
