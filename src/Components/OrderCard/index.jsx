@@ -39,21 +39,30 @@ const OrderCard = ({ id, title, imageUrl, price, quantity, handleDelete }) => {
         </div>
       </div>
 
-      <div className='flex items-center gap-2'>
-        <button onClick={() => decreaseProduct(id)}>
-          <MinusIcon className="h-3 w-3 text-black" />
-        </button>
+      {handleDelete
+        ? (
+          <div className='flex items-center gap-2'>
+            <button onClick={() => decreaseProduct(id)}>
+              <MinusIcon className="h-3 w-3 text-black" />
+            </button>
 
-        <span className='w-4 bg-gray-300 text-sm text-center'>{quantity}</span>
+            <span className='w-4 bg-gray-300 text-sm text-center'>{quantity}</span>
 
-        <button onClick={() => increaseProduct(id)}>
-          <PlusIcon className="h-3 w-3 text-black" />
-        </button>
+            <button onClick={() => increaseProduct(id)}>
+              <PlusIcon className="h-3 w-3 text-black" />
+            </button>
 
-        <button onClick={() => handleDelete(id)}>
-          <TrashIcon className="h-4 w-4 text-black" />
-        </button>
-      </div>
+            <button onClick={() => handleDelete(id)}>
+              <TrashIcon className="h-4 w-4 text-black" />
+            </button>
+          </div>
+          )
+        : (
+          <div className='flex items-center gap-2'>
+            <span className='w-4 text-sm text-center'>{quantity}</span>
+          </div>
+          )
+    }
     </li>
   )
 }
