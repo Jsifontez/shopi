@@ -12,7 +12,7 @@ const CheckoutSideMenu = () => {
     isCheckoutSideMenuOpen,
     cartProducts,
     setCartProducts,
-    setOrder,
+    setOrders,
     setCount
   } = useContext(ShoppingCartContext)
 
@@ -30,7 +30,7 @@ const CheckoutSideMenu = () => {
       totalPice: totalPice(cartProducts)
     }
 
-    setOrder(order => [...order, orderToAdd])
+    setOrders(order => [...order, orderToAdd])
     setCartProducts([])
     setCount(0)
   }
