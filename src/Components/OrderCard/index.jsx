@@ -5,11 +5,13 @@ import { ShoppingCartContext } from '../../context'
 const OrderCard = ({ id, title, imageUrl, price, quantity, handleDelete }) => {
   const { cartProducts, setCartProducts } = useContext(ShoppingCartContext)
 
+  const findProductIndex = (products, productId) => products.findIndex(
+    product => product.id === productId
+  )
+
   const increaseProduct = (productId) => {
     const newProducts = [...cartProducts]
-    const productIndex = newProducts.findIndex(
-      product => product.id === productId
-    )
+    const productIndex = findProductIndex(newProducts, productId)
 
     newProducts[productIndex].quantity++
 
@@ -18,9 +20,7 @@ const OrderCard = ({ id, title, imageUrl, price, quantity, handleDelete }) => {
 
   const decreaseProduct = (productId) => {
     const newProducts = [...cartProducts]
-    const productIndex = newProducts.findIndex(
-      product => product.id === productId
-    )
+    const productIndex = findProductIndex(newProducts, productId)
 
     if (newProducts[productIndex].quantity > 1) {
       newProducts[productIndex].quantity--
