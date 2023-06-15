@@ -14,7 +14,7 @@ function Home () {
   }, [])
 
   return (
-    <main>
+    <>
       <h1>Home</h1>
 
       <section className='grid gap-5 grid-cols-4 w-full max-w-screen-lg'>
@@ -26,7 +26,7 @@ function Home () {
       {isProductDetailOpen &&
         <ProductDetail />
       }
-    </main>
+    </>
   )
 }
 
