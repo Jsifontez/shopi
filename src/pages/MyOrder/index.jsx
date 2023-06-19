@@ -1,11 +1,14 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { ChevronLeftIcon } from '@heroicons/react/24/solid'
 import OrderCard from '../../Components/OrderCard'
 import { ShoppingCartContext } from '../../context'
 
 function MyOrder () {
   const { orders } = useContext(ShoppingCartContext)
+  const { id } = useParams()
+  const index = id || orders?.length - 1
+
   return (
     <>
       <div className='flex items-center justify-center w-80 relative'>
@@ -17,7 +20,7 @@ function MyOrder () {
 
       <section className='mt-5'>
         <ul>
-          {orders?.slice(-1)[0].products.map(product => (
+          {orders?.[index].products.map(product => (
             <OrderCard
               key={product.id}
               id={product.id}
