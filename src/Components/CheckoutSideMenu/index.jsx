@@ -27,7 +27,7 @@ const CheckoutSideMenu = () => {
       date: '06-12-2023',
       products: cartProducts,
       totalProducts: cartProducts.length,
-      totalPice: totalPice(cartProducts)
+      totalPrice: totalPice(cartProducts)
     }
 
     setOrders(order => [...order, orderToAdd])
