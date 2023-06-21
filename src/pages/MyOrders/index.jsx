@@ -8,7 +8,7 @@ function MyOrders () {
   const { orders } = useContext(ShoppingCartContext)
   return (
     <>
-      <h1>MyOrders</h1>
+      <h1 className='font-medium text-xl'>MyOrders</h1>
 
       {orders.map((order, index) => (
         <Link key={index} to={`/my-orders/${index}`}>
