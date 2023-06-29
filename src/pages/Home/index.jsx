@@ -1,12 +1,16 @@
 import { useContext, useState } from 'react'
-import useFetchProducts from '../../utils/useFetchProducts'
+import useFetchProducts from '../../utils/useFetchProducts.js'
 import Card from '../../Components/Card'
 import ProductDetail from '../../Components/ProductDetail'
 import { ShoppingCartContext } from '../../context'
 
 function Home () {
   const { isProductDetailOpen } = useContext(ShoppingCartContext)
-  const { products } = useFetchProducts('https://api.escuelajs.co/api/v1/products')
+  const {
+    products,
+    isLoading,
+    isError
+  } = useFetchProducts('https://api.escuelajs.co/api/v1/products')
 
   const [filterInput, setFilterInput] = useState('')
   const filteredProducts = products?.filter(product => {
@@ -30,21 +34,36 @@ function Home () {
       </header>
 
       <section className='grid gap-5 grid-cols-4 w-full max-w-screen-lg'>
-        {filteredProducts.length > 0
-          ? (
-              filteredProducts?.map(product => (
-                <Card key={product.id} product={product} />
-              ))
-            )
-          : (
-            <div className='col-span-4'>
-              <p className='text-lg mb-4'>
-                Sorry, We did not find any products.
-              </p>
-              <p className='text-lg'>Try Another Search</p>
-            </div>
-            )
-        }
+        {isLoading && !filteredProducts && (
+          <div className='col-span-4'>
+            <p className='text-lg'>
+              Fetching Products...
+            </p>
+          </div>
+        )}
+        {!isLoading && isError && (
+          <div className='col-span-4'>
+            <p className='text-lg'>
+              Ups! and Error occured. Try Again, please
+            </p>
+          </div>
+        )}
+        {!isLoading && !isError && filteredProducts && (
+          filteredProducts.length > 0
+            ? (
+                filteredProducts?.map(product => (
+                  <Card key={product.id} product={product} />
+                ))
+              )
+            : (
+                <div className='col-span-4'>
+                  <p className='text-lg mb-4'>
+                    Sorry, We did not find any products.
+                  </p>
+                  <p className='text-lg'>Try Another Search</p>
+                </div>
+              )
+        )}
       </section>
 
       {isProductDetailOpen &&
