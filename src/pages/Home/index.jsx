@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { useResolvedPath } from 'react-router-dom'
 import useFetchProducts from '../../utils/useFetchProducts.js'
 import Card from '../../Components/Card'
 import ProductDetail from '../../Components/ProductDetail'
@@ -12,13 +13,35 @@ function Home () {
     isError
   } = useFetchProducts('https://api.escuelajs.co/api/v1/products')
 
+  const path = useResolvedPath()
   const [filterInput, setFilterInput] = useState('')
-  const filteredProducts = products?.filter(product => {
+
+  const filterProductsByTitle = (prods) => prods?.filter(product => {
     const title = product.title.toLowerCase()
     const inputText = filterInput.toLowerCase()
 
     return title.includes(inputText)
   })
+
+  const filterProductsByCategory = (prods) => {
+    const categoryProducts = prods?.filter(product => {
+      const category = product.category.name.toLowerCase()
+      return category.includes(path.pathname.slice(1, -1))
+    })
+
+    // for filter the products by title
+    return filterProductsByTitle(categoryProducts)
+  }
+
+  const filterProducts = (prods) => (prods && path.pathname.length === 1
+    ? (
+        filterProductsByTitle(prods)
+      )
+    : (
+        filterProductsByCategory(prods)
+      ))
+
+  const filteredProducts = filterProducts(products)
 
   return (
     <>
