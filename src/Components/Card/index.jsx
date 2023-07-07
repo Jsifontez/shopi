@@ -10,10 +10,13 @@ const Card = ({ product }) => {
     setProdcutToShow,
     cartProducts,
     setCartProducts,
-    openCheckoutSideMenu
+    openCheckoutSideMenu,
+    isCheckoutSideMenuOpen,
+    closeCheckoutSideMenu
   } = useContext(ShoppingCartContext)
 
   const showProduct = (productDetail) => {
+    if (isCheckoutSideMenuOpen) closeCheckoutSideMenu()
     openProductDetail()
     setProdcutToShow(productDetail)
   }
