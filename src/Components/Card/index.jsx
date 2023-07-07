@@ -57,7 +57,7 @@ const Card = ({ product }) => {
 
   return (
     <article
-      className='bg-white cursor-pointer w-56 h-60 rounded-lg'
+      className='bg-white cursor-pointer w-56 h-60 rounded-lg justify-self-center'
       onClick={() => showProduct(product)}
     >
       <figure className='relative mb-2 w-full h-4/5'>

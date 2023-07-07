@@ -56,7 +56,7 @@ function Home () {
         />
       </header>
 
-      <section className='grid gap-5 grid-cols-4 w-full max-w-screen-lg'>
+      <section className='grid gap-5 w-full max-w-screen-lg sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {isLoading && !filteredProducts && (
           <div className='col-span-4'>
             <p className='text-lg'>
