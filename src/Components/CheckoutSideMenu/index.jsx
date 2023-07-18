@@ -20,6 +20,7 @@ const CheckoutSideMenu = () => {
     const filterProducts = cartProducts.filter(product => product.id !== id)
 
     setCartProducts(filterProducts)
+    setCount(filterProducts.length)
   }
 
   const handleCheckout = () => {
