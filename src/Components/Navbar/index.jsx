@@ -80,7 +80,7 @@ const Navbar = () => {
     }
   ]
 
-  const handleCheckoutSideMenu = () => {
+  const toogleCheckoutSideMenu = () => {
     if (isCheckoutSideMenuOpen) closeCheckoutSideMenu()
     else openCheckoutSideMenu()
   }
@@ -103,7 +103,7 @@ const Navbar = () => {
             <NavItem key={link.text} link={link} />
           ))}
 
-          <li className='flex items-center cursor-pointer' onClick={handleCheckoutSideMenu}>
+          <li className='flex items-center cursor-pointer' onClick={toogleCheckoutSideMenu}>
             <ShoppingBagIcon className='h-6 w-6 text-black' />
             <span>{count}</span>
           </li>
@@ -139,7 +139,7 @@ const Navbar = () => {
         )}
         <div
           className='flex items-center fixed top-5 right-4 bg-white p-2 rounded-full cursor-pointer'
-          onClick={handleCheckoutSideMenu}
+          onClick={toogleCheckoutSideMenu}
         >
           <ShoppingBagIcon className='h-6 w-6 text-black' />
           <span>{count}</span>
